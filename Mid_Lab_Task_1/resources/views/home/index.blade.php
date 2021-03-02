@@ -16,9 +16,8 @@
     	<tr height="400px">
     		<td colspan="">
     			<h2>Accounts</h2>
-			    <a href="/home/create">Create user</a><br>
+			    <a href="/home/create">Create Product</a><br>
 			    <a href="/home/productlist">View product list|</a><br>
-                <a href="/home/userlist">View user list|</a><br>
 			    <a href="/logout">Logout</a></br>
     		</td>
     		<td width="600px"></td>

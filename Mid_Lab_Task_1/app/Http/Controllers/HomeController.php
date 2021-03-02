@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Product;
+use App\Physical_store_Channel;
+use App\Http\Requests\ProductRequest;
 
 class HomeController extends Controller
 {
@@ -24,20 +25,23 @@ class HomeController extends Controller
         return  view('home.create');
     }
 
-    public function store(Request $requ){
+    public function store(ProductRequest $requ){
         //inset into dab or model
-        $product = new Product();
-        $product->id  =  $requ->productId;
-        $product->ProductName  =  $requ->ProductName;
-        $product->Price      =  $requ->price;
-        $product->Type       =  $requ->productType;
-        $product->Status     =  $requ->status;
-        $product->Quantity   =  $requ->quantity;
-        $product->Review     =  $requ->review;
-        $product->Offer      =  $requ->offer;
-        $product->SellerId   =  $requ->sId;
+        $physical_store = new Physical_Store_Channel();
 
-        $product->save();
+        $physical_store->customer_name  =  $requ->customer_name;
+        $physical_store->address  =  $requ->address;
+        $physical_store->phone      =  $requ->phone;
+        $physical_store->product_id       =  $requ->product_id;
+        $physical_store->product_name     =  $requ->product_name;
+        $physical_store->unit_price   =  $requ->unit_price;
+        $physical_store->quantity     =  $requ->quantity;
+        $physical_store->total_price      =  $requ->total_price;
+        $physical_store->date_sold   =  $requ->current_date;
+        $physical_store->payment_type   =  $requ->payment_type;
+        $physical_store->status   =  $requ->status;
+
+        $physical_store->save();
 
 
         return  redirect('/home/userlist');
@@ -47,14 +51,14 @@ class HomeController extends Controller
     public function edit($id){
         //inset into db or model
         //return  redirect('/home/userlist');
-        $product = Product::find($id);
+        $product = Physical_Store_Channel()::find($id);
 
         return  view('home.edit')->with('product',$product);
     }
 
     public function update($id, Request $requ){
         //update into db or model
-        $product =  Product::find($id);
+        $product =  Physical_Store_Channel()::find($id);
         
         $product->ProductName  =  $requ->username;
        // $product->Password   =  $requ->password;
@@ -77,14 +81,14 @@ class HomeController extends Controller
 
     public function delete($id, Request $requ){
         //delete from db or model
-        $product = Product::find($id);
+        $product = Physical_Store_Channel::find($id);
         //print_r($product);
        return  view('home.delete')->with('product',$product);
     }
 
     public function destroy($id, Request $requ){
         
-        if(Product::destroy($id))
+        if(Physical_Store_Channel::destroy($id))
         {
             return redirect('/home/userlist');
         }else{
@@ -93,7 +97,7 @@ class HomeController extends Controller
     }
 
     public function show($id){
-        $product = Product::find($id);
+        $product = Physical_Store_Channel::find($id);
 
        // echo $id;
         //print_r($product);
@@ -102,7 +106,7 @@ class HomeController extends Controller
 
     public function userlist(){
         // echo "Welcome Home";
-       $product = Product::all();
+       $product = Physical_Store_Channel::all();
       // $product = $this->getUserlist();
        return  view('home.list')->with('product',$product);
      }
