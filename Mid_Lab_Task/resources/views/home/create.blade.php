@@ -73,9 +73,9 @@
         </fieldset>
         @foreach ($errors->all() as $err)
 
-                    {{ $err }} <br>
+             {{ $err }} <br>
                 
-                @endforeach
+        @endforeach
     </form>
 </body>
 </html>

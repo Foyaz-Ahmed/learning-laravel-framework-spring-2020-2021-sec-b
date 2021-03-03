@@ -33,32 +33,20 @@ Route::get('login', function () {
     Route::get('/home','HomeController@index');
     Route::get('/home/userlist','HomeController@userlist');
     Route::get('/home/create','HomeController@create');
-    Route::post('/home/create','HomeController@store');
+  // Route::post('/home/create','HomeController@store');
     Route::get('/home/userlist','HomeController@userlist');
-    Route::get('/home/edit/{id}','HomeController@edit');
-    Route::post('/home/edit/{id}','HomeController@update');
-    Route::get('/home/delete/{id}','HomeController@delete');
-    Route::post('/home/delete/{id}','HomeController@destroy');
+   
     Route::get('/home/details/{id}','HomeController@show');
+    Route::get('/sytem/sales/physical_store');
+    Route::get('/system/product','HomeController@product');
+    Route::get('/system/product_management/existing_product','HomeController@edit');
+    Route::get('/system/product_management/upcoming_product','HomeController@upcoming_product');
+    Route::get('/system/product_management/add_product','HomeController@store');
+    
+
 
 
     });
-
-   /* Route::group(['middleware'=>('type')], function(){
-
-    Route::get('/home','HomeController@index');
-    //another way making route by array
-    Route::get('/home',['uses'=> 'HomeController@index]);
-    Route::get('/home/create','HomeController@create');
-    Route::post('/home/create','HomeController@store');
-    Route::get('/home/userlist','HomeController@userlist');
-    Route::get('/home/edit/{id}','HomeController@edit');
-    Route::post('/home/edit/{id}','HomeController@update');
-    Route::get('/home/delete/{id}','HomeController@delete');
-    Route::post('/home/delete/{id}','HomeController@destroy');
-    });*/
-
-
 
 
     Route::get('/logout','LogoutController@index');
