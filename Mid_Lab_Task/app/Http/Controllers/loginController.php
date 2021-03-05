@@ -2,68 +2,60 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-use App\Employee;
+use App\User;
 use Illuminate\Support\Facades\DB;
-use Validator;
-//use App\Http\Requests\UserRequest;
-use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\UserRequest;
 
-
-class loginController extends Controller
+class LoginController extends Controller
 {
-    public function index(Request $req){
-        if($req->session()->has('name')){
-            return redirect('/home');
-            } 
+    public function index(){
         return view('login.index');
     }
-    public function verify(Request $req){
 
+    public function verify(UserRequest $req){
 
+        $validated = $req->validated();
 
-        $userlogin = DB::table('employees')
-                            ->where('Password',$req->password)
-                            ->where('Email',$req->username)
-                            ->get();
+        $user = DB::table('user')
+                    ->where('password', $req->password)
+                    ->where('email', $req->email)
+                    ->get();
 
-       if($req->username==""  || $req->password==""){
-        // echo "Null Submission";
-        $req->session()->flash('msg', 'Null Submission');
-        return redirect('/login');
+        if($req->email == "" || $req->password == ""){
+           $req->session()->flash('msg', 'Email and username cannot be empty');
+           return redirect('/login');
 
-      }elseif(count($userlogin) > 0){
-           
-        $req->session()->put('name', $req->username);
-        
-        
-        return redirect('/home'); 
-        
-       }else{
-        $req->session()->flash('msg', 'invalid username and password');
-        return redirect('/login');
-       }
+        }elseif(count($user) > 0 ){
+            //$req->session()->put('email', $req->email);
+            //return redirect('/home');
+            $user = User::find($req->email);
+
+            $req->session()->put('name', $user->name);
+
+            if($user->role == "Admin"){
+                return redirect('/admin');
+            }
+            else if($user->role == "Customer"){
+                return redirect('/customerIndex');
+            }
+            else if($user->role == "Accountant"){
+                return redirect('/accountantIndex');
+            }
+            else if($user->role == "Sales and Marketing"){
+                return redirect('/salesIndex');
+            }
+            else if($user->role == "Business Partner"){
+                return redirect('/partnerIndex');
+            }
+            else{
+                return redirect('/home');
+
+            }
+            
+        }else{
+
+            $req->session()->flash('msg', 'Invalid username or password...');
+            return redirect('/login');
+        }
     }
-    
-    public function register(){
-        return view('registration.register');
-    }
-
-    public function successreg(RegisterRequest $requ){
-        
-        $reg = new Employee ();
-        $reg->Name  =  $requ->name;
-        $reg->Username  =  $requ->username;
-        $reg->Email      =  $requ->email;
-        $reg->Password       =  $requ->password;
-        $reg->CompanyName     =  $requ->cname;
-        //$reg->Quantity   =  $requ->quantity;
-        $reg->Country     =  $requ->country;
-        $reg->City      =  $requ->city;
-        $reg->Phone   =  $requ->phone;
-
-        $reg->save();
-        return  redirect('/login');
-    }
-    
-
 }

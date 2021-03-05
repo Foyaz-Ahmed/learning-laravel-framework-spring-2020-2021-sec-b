@@ -14,27 +14,21 @@
     <table border=1 cellspacing="0" >
         <tr align="center">
             <th>Product ID</th>
-            <th>Product Nam</th>
-            <th>Price</th>
-            <th>type</th>
-            <th>Status</th>
+            <th>Product Name</th>
             <th>Quantity</th>
-            <th>Review</th>
-            <th>Offer</th>
-            <th>Seller Id</th>
+            <th>Date of Sold</th>
+            <th>Existing Product</th>
+            <th>Upcoming Product</th>
             <th>Action</th>
         </tr>
         @foreach($product as  $value)
         <tr align="center">
             <td>{{ $value['id'] }}</td>
-            <td>{{ $value['ProductName'] }}</td>
-            <td>{{ $value['Price'] }}</td>
-            <td>{{ $value['Type'] }}</td>
-            <td>{{ $value['Status'] }}</td>
-            <td>{{ $value['Quantity'] }}</td>
-            <td>{{ $value['Review'] }}</td>
-            <td>{{ $value['Offer'] }}</td>
-            <td>{{ $value['SellerId'] }}</td>
+            <td>{{ $value['product_name'] }}</td>
+            <td>{{ $value['quantity'] }}</td>
+            <td>{{ $value['date_sold'] }}</td>
+            <td>{{ $value['existing_product'] }}</td>
+            <td>{{ $value['upcoming_product'] }}</td>
             <td>
                 <a href="/home/edit/{{ $value['id'] }}">Edit</a>
                 <a href="/home/delete/{{ $value['id'] }}">Delete</a>

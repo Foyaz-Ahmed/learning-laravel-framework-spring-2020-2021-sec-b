@@ -24,9 +24,16 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'username' => 'required|email:rfc,dns|max:50',
-            'password' => 'required|min:8|max:20|regex:[a-zA-Z0-9_\-]'
 
+            'email' => 'required|email|max:49|bail',
+            'password' => 'required|max:20|min:2'
+        ];
+    }
+
+    public function messages(){
+        return [
+            'email.required' => "Email must be valid.",
+            'password.required' =>"Fill password field, Hint: Alphanumeric"
         ];
     }
 }

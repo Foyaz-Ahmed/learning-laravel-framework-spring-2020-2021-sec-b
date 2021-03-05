@@ -1,40 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+	<title>Login page</title>
 </head>
 <body>
-    <h1>This is login Page</h1>
-    <form method="post">
-      <!--  @csrf -->
-      <!-- {{ csrf_field() }} -->
-       <input type="hidden" name="_token" value="{{ csrf_token() }}">
-        <fieldset>
-            <legend>Login Form</legend>
-            <table>
-                <tr>
-                    <td>User Email:</td>
-                    <td> <input type="text" name="username"></td>
-                </tr>
-                <tr>
-                    <td>Password:</td>
-                    <td> <input type="password" name="password"></td>
-                </tr>
-                <tr>
-                    <td> <input type="submit" name="submit" value="submit"></td>
-                </tr>
-            </table>
-        </fieldset>
-         @foreach ($errors->all() as $err)
+	<h1>Login Page</h1>
 
-                    {{ $err }} <br>
-                
-                @endforeach
-        <a  href='/registration'>Sign up</a>
-    </form>
-    {{ session('msg') }} 
+	<form method="post">
+        @csrf
+		<fieldset>
+			<legend>Login</legend>
+			<table>
+				<tr>
+					<td>Email: </td>
+					<td><input type="text" name="email"></td>
+				</tr>
+				<tr>
+					<td>Password: </td>
+					<td><input type="password" name="password"></td>
+				</tr>
+				<tr>
+				<td></td>
+					<td><input type="submit" name="submit" value="Submit"></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><input type='button' onclick="location.href='/register';" value="Sign up"></input></td>
+				</tr>
+			</table>
+		</fieldset>
+	</form>
+
+	<br>
+
+	
+
+	<br>
+
+    {{session('msg')}}
+
+	@foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+    @endforeach
+
 </body>
 </html>
